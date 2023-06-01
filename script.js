@@ -3,37 +3,65 @@
 const rootElem = document.getElementById("root");
 const inputSearch = document.querySelector("#liveSearch");
 const pCounter = document.querySelector("#counter");
-const selectMovie = document.querySelector("#selectMovie");
+const selectEpisodes = document.querySelector("#selectEpisodes");
+const selectShow = document.querySelector("#selectShows");
 
 function setup() {
-  const allEpisodes = getAllEpisodes();
-  makeSelectAndOptions(allEpisodes);
-  makePageForEpisodes(allEpisodes);
-  makeSearch(allEpisodes);
+  const allShows = getAllShows();
+  makeSelectShows(allShows); //level 400
+  fetchingShows();
 }
 
-function makeSelectAndOptions(episodeList) {
+function makeSelectShows(shows) {
+  shows.forEach((eachShow) => {
+    const option = document.createElement("option");
+    option.textContent = eachShow.name;
+    option.value = eachShow.id;
+    selectShow.appendChild(option);
+  });
+}
+
+function fetchingShows() {
+  selectShow.addEventListener("change", () => {
+    if (selectShow.value === "empty")
+      selectEpisodes.innerHTML = `<option value="all">All Episodes</option>`;
+    else {
+      fetch(`https://api.tvmaze.com/shows/${selectShow.value}/episodes`) //Level 350
+        .then((response) => response.json())
+        .then((episodes) => {
+          makeSelectEpisodes(episodes, episodes); //Level 300
+          makePageForEpisodes(episodes, episodes); //Level 100
+          makeSearch(episodes); //Level 200
+        })
+        .catch((err) => console.error(err));
+    }
+  });
+}
+
+function makeSelectEpisodes(episodeList) {
+  selectEpisodes.innerHTML = `<option value="all">All Episodes</option>`;
   episodeList.forEach((eachEpisode) => {
     const option = document.createElement("option");
     const seasonNumber = eachEpisode.season.toString().padStart(2, "0");
     const episodeNumber = eachEpisode.number.toString().padStart(2, "0");
     option.innerText = `S${seasonNumber}E${episodeNumber} - ${eachEpisode.name}`;
-    selectMovie.appendChild(option);
+    selectEpisodes.appendChild(option);
   });
-  selectMovie.addEventListener("change", (event) => {
+  selectEpisodes.addEventListener("change", (event) => {
     rootElem.innerHTML = "";
-    if (event.target.value === "all") makePageForEpisodes(episodeList);
+    if (event.target.value === "all")
+      makePageForEpisodes(episodeList, episodeList);
     else {
       const newEpisodesList = episodeList.filter((eachEpisode) =>
         eachEpisode.name.includes(event.target.value.split(" - ")[1])
       );
-      makePageForEpisodes(newEpisodesList);
+      makePageForEpisodes(newEpisodesList, episodeList);
     }
   });
 }
 
-function makePageForEpisodes(episodeList) {
-  pCounter.textContent = `Displaying ${episodeList.length} / 73 episode(s)`;
+function makePageForEpisodes(episodeList, allEpisode) {
+  pCounter.textContent = `Displaying ${episodeList.length} / ${allEpisode.length} episode(s)`;
   episodeList.forEach((eachEpisode) => {
     const divContainer = document.createElement("div");
     divContainer.classList.add("container");
@@ -63,7 +91,7 @@ function makeSearch(episodeList) {
           .toLowerCase()
           .includes(event.target.value.toLowerCase())
     );
-    makePageForEpisodes(newEpisodesList);
+    makePageForEpisodes(newEpisodesList, episodeList);
   });
 }
 
