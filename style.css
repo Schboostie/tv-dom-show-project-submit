@@ -1,3 +1,98 @@
+:root {
+  --dark-blue: #141414;
+  --light-grey: #f5f5f5;
+  --red: #e50914;
+  --white: #ffffff;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: var(--dark-blue);
+}
+
 #root {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 20px;
+}
+
+.container {
+  background-color: var(--light-grey);
+  margin: 10px;
+  padding: 20px;
+  max-width: 400px;
+  text-align: justify;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.title {
+  font-weight: bold;
+  font-size: 24px;
+  margin-bottom: 10px;
+  color: var(--red);
+}
+
+img {
+  margin-bottom: 20px;
+  width: 100%;
+  border-radius: 10px;
+}
+
+.nav {
+  display: flex;
+  justify-content: space-around;
+  padding: 20px;
+  margin: 20px;
+  background-color: var(--dark-blue);
+  color: var(--white);
+  font-weight: bold;
+  border-radius: 10px;
+}
+
+input[type="text"],
+select {
+  margin: 0px 10px;
+  padding: 10px 20px;
+  border-radius: 10px;
+  max-width: 300px;
+}
+
+input[type="text"] {
+  background-color: var(--light-grey);
+}
+
+select {
+  background-color: var(--white);
+  color: var(--dark-blue);
+}
+
+div {
+  color: var(--black);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--black);
+}
+
+#lead {
+  display: block;
+  text-align: center;
+  margin: 0 auto;
+  position: center;
+  font-family: serif;
   color: red;
+  font-size: 100px;
 }
