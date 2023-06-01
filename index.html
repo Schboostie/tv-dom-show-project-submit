@@ -9,24 +9,19 @@
   </head>
 
   <body>
-    <!--Added a  p -->
-
-    <p id="counter" class="nav"></p>
-    <!--Added a  p -->
-
+    <section class="nav">
+      <label for="liveSearch">
+        Search<input type="text" id="liveSearch" />
+      </label>
+      <p id="counter"></p>
+    </section>
     <div id="root"></div>
-
     <!-- Loads a provided function called getAllEpisodes() which returns all episodes -->
     <script src="episodes.js"></script>
-
-    <!--Added this footer -->
-    <footer class="nav">
+    <footer>
       The data has (originally) come from
       <a href="https://www.tvmaze.com">TVMaze</a>
     </footer>
-
-    <!-- Added this footer-->
-
     <!-- Loads YOUR javascript code -->
     <script src="script.js"></script>
   </body>
