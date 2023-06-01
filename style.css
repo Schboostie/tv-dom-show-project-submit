@@ -3,6 +3,7 @@
   --light-grey: #f5f5f5;
   --red: #e50914;
   --white: #ffffff;
+  --black: #000000;
 }
 
 * {
@@ -21,6 +22,19 @@ body {
   flex-wrap: wrap;
   justify-content: center;
   padding: 20px;
+
+  /*added styling for the background*/
+  --sl: calc(66px + 1px) calc(33px + -0.5px), transparent calc(33px + 0.5px);
+  background: radial-gradient(
+        #fff 22px,
+        #000 calc(22px + 1px) 44px,
+        #fff var(--sl)
+      )
+      88px 88px,
+    repeating-conic-gradient(#000 0% 25%, transparent 0% 50%) 44px 44px,
+    radial-gradient(#000 22px, #fff calc(22px + 1px) 44px, #000 var(--sl));
+  background-size: 176px 176px, 88px 88px;
+  background-blend-mode: lighten;
 }
 
 .container {
@@ -91,8 +105,21 @@ h6 {
   display: block;
   text-align: center;
   margin: 0 auto;
-  position: center;
   font-family: serif;
   color: red;
   font-size: 100px;
+}
+
+html {
+  --sl: calc(66px + 1px) calc(33px + -0.5px), transparent calc(33px + 0.5px);
+  background: radial-gradient(
+        #fff 22px,
+        #000 calc(22px + 1px) 44px,
+        #fff var(--sl)
+      )
+      88px 88px,
+    repeating-conic-gradient(#000 0% 25%, transparent 0% 50%) 44px 44px,
+    radial-gradient(#000 22px, #fff calc(22px + 1px) 44px, #000 var(--sl));
+  background-size: 176px 176px, 88px 88px;
+  background-blend-mode: lighten;
 }
